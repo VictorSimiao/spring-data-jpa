@@ -1,5 +1,6 @@
 package br.com.victorreis.springdata.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,10 @@ public class CargoService {
 
 	public Optional<Cargo> isContemCargo(Integer id) {
 		return cargoRepository.findById(id);
+	}
+
+	public List<Cargo> listar() {
+		return cargoRepository.findAll();
 	}
 	
 	

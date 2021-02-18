@@ -1,11 +1,13 @@
 package br.com.victorreis.springdata.controller;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,6 +31,12 @@ public class CargoController {
 	@Autowired
 	public CargoController(CargoService cargoService) {
 		this.cargoService = cargoService;
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CargoDTO>> listar(){
+		List<Cargo> cargos = cargoService.listar();
+		return ResponseEntity.ok(CargoDTO.converter(cargos));
 	}
 
 	@PostMapping
