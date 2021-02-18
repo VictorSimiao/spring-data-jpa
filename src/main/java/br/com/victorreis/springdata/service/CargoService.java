@@ -1,5 +1,7 @@
 package br.com.victorreis.springdata.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +21,10 @@ public class CargoService {
 	
 	public Cargo salvar(Cargo cargo) {
 		return cargoRepository.save(cargo);
+	}
+
+	public Optional<Cargo> isContemCargo(Integer id) {
+		return cargoRepository.findById(id);
 	}
 	
 	
