@@ -31,6 +31,11 @@ public class CargoService {
 	public List<Cargo> listar() {
 		return cargoRepository.findAll();
 	}
+
+	public void deletar(Integer id) {
+		cargoRepository.deleteById(id);
+		
+	}
 	
 	
 	
