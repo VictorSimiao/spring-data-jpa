@@ -1,0 +1,1 @@
+INSERT INTO Cargos (descricao) values ('Programador Java Web');
