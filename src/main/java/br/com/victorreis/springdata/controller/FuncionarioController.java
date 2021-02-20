@@ -1,6 +1,8 @@
 package br.com.victorreis.springdata.controller;
 
 import java.net.URI;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +44,13 @@ public class FuncionarioController {
 	@GetMapping("por-nome")
 	public ResponseEntity<List<FuncionarioDTO>> listarPorNome(String nome) {
 		List<Funcionario> funcionarios = funcionarioRepository.findByNome(nome);
+		return ResponseEntity.ok(FuncionarioDTO.converter(funcionarios));
+	}
+
+	@GetMapping("data-contratacao-a-partir-de")
+	public ResponseEntity<List<FuncionarioDTO>> listarPorDataContratacao(String data) {
+		LocalDate dataConvertida = LocalDate.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+		List<Funcionario> funcionarios = funcionarioRepository.findDataContratacaoMaiorOuIgual(dataConvertida);
 		return ResponseEntity.ok(FuncionarioDTO.converter(funcionarios));
 	}
 

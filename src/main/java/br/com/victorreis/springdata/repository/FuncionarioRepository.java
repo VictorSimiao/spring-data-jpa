@@ -19,6 +19,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 	List<Funcionario> findByCargoDescricao(String descricao);
 	
 	@Query(value = "SELECT * FROM funcionarios f WHERE f.data_contratacao >= :data", nativeQuery = true)
-	List<Funcionario> findDataContratacaoMaior(LocalDate data);
+	List<Funcionario> findDataContratacaoMaiorOuIgual(LocalDate data);
 
 }
