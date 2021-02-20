@@ -8,11 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import br.com.victorreis.springdata.model.Funcionario;
 
+
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Integer> {
 	
 	List<Funcionario> findByNome(String nome);
 	
-	@Query("SELECT f FROM FUNCIONARIO f WHERE f.nome = :nome AND f.salario >= :salario AND f.dataContratacao = :data")
+	@Query("SELECT f FROM Funcionario f WHERE f.nome = :nome AND f.salario >= :salario AND f.dataContratacao = :data")
 	List<Funcionario> findNomeSalarioMaiorDataContratacao(String nome, Double salario, LocalDate data);
 	
 	List<Funcionario> findByCargoDescricao(String descricao);

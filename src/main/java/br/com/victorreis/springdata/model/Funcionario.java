@@ -38,6 +38,7 @@ public class Funcionario {
 	private BigDecimal salario;
 
 	private LocalDate dataContratacao = LocalDate.now();
+	
 
 	@ManyToOne
 	@JoinColumn(name = "cargo_id", nullable = false)
