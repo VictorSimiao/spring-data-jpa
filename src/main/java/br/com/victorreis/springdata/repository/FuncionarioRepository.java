@@ -14,5 +14,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Intege
 	
 	@Query("SELECT f FROM FUNCIONARIO f WHERE f.nome = :nome AND f.salario >= :salario AND f.dataContratacao = :data")
 	List<Funcionario> findNomeSalarioMaiorDataContratacao(String nome, Double salario, LocalDate data);
+	
+	List<Funcionario> findByCargoDescricao(String descricao);
 
 }
