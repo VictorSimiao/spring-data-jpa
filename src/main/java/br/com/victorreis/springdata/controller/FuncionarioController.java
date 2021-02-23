@@ -4,11 +4,13 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +42,17 @@ public class FuncionarioController {
 		List<Funcionario> funcionarios = funcionarioRepository.findAll();
 		return ResponseEntity.ok(FuncionarioDTO.converter(funcionarios));
 	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<FuncionarioDTO> detalhar(@PathVariable Integer id){
+		Optional<Funcionario> funcionarioOptional = funcionarioRepository.findById(id);
+		if(funcionarioOptional.isPresent()) {
+			return ResponseEntity.ok(new FuncionarioDTO(funcionarioOptional.get()));
+		}
+		return ResponseEntity.notFound().build();
+	}
+	
+	
 
 	@GetMapping("por-nome")
 	public ResponseEntity<List<FuncionarioDTO>> listarPorNome(String nome) {
@@ -69,5 +82,8 @@ public class FuncionarioController {
 		URI uri = uriBuilder.path("/cargos/{id}").buildAndExpand(funcionario.getId()).toUri();
 		return ResponseEntity.created(uri).body(new FuncionarioDTO(funcionario));
 	}
+	
+	
+	
 
 }
