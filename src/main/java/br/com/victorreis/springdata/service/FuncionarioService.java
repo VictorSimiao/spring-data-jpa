@@ -1,5 +1,7 @@
 package br.com.victorreis.springdata.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,14 @@ public class FuncionarioService {
 	
 	public Funcionario save(Funcionario funcionario) {
 		return funcionarioRepository.save(funcionario);
+	}
+	
+	public Optional<Funcionario> isContemFuncionario(Integer id) {
+		return funcionarioRepository.findById(id);
+	}
+	
+	public void deletar(Integer id){
+		funcionarioRepository.deleteById(id);
 	}
 
 }

@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,24 +43,22 @@ public class FuncionarioController {
 		List<Funcionario> funcionarios = funcionarioRepository.findAll();
 		return ResponseEntity.ok(FuncionarioDTO.converter(funcionarios));
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<FuncionarioDTO> detalhar(@PathVariable Integer id){
+	public ResponseEntity<FuncionarioDTO> detalhar(@PathVariable Integer id) {
 		Optional<Funcionario> funcionarioOptional = funcionarioRepository.findById(id);
-		if(funcionarioOptional.isPresent()) {
+		if (funcionarioOptional.isPresent()) {
 			return ResponseEntity.ok(new FuncionarioDTO(funcionarioOptional.get()));
 		}
 		return ResponseEntity.notFound().build();
 	}
-	
-	
 
 	@GetMapping("por-nome")
 	public ResponseEntity<List<FuncionarioDTO>> listarPorNome(String nome) {
 		List<Funcionario> funcionarios = funcionarioRepository.findByNome(nome);
 		return ResponseEntity.ok(FuncionarioDTO.converter(funcionarios));
 	}
-	
+
 	@GetMapping("por-cargo")
 	public ResponseEntity<List<FuncionarioDTO>> listarPorCargo(String cargo) {
 		List<Funcionario> funcionarios = funcionarioRepository.findByCargoDescricao(cargo);
@@ -82,8 +81,15 @@ public class FuncionarioController {
 		URI uri = uriBuilder.path("/cargos/{id}").buildAndExpand(funcionario.getId()).toUri();
 		return ResponseEntity.created(uri).body(new FuncionarioDTO(funcionario));
 	}
-	
-	
-	
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<FuncionarioDTO> deletar(@PathVariable Integer id) {
+		Optional<Funcionario> contemFuncionario = funcionarioService.isContemFuncionario(id);
+		if (contemFuncionario.isPresent()) {
+			funcionarioService.deletar(id);
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
+	}
 
 }
