@@ -1,2 +1,2 @@
-# spring-data-jpa
-Repositório criado para estudar e praticar o mudulo Spring Data JPA.
+:memo: #Sobre  
+API REST criada para estudar e praticar o mudulo Spring Data JPA.
