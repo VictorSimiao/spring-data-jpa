@@ -46,6 +46,12 @@ public class FuncionarioController {
 		List<Funcionario> funcionarios = funcionarioRepository.findByNome(nome);
 		return ResponseEntity.ok(FuncionarioDTO.converter(funcionarios));
 	}
+	
+	@GetMapping("por-cargo")
+	public ResponseEntity<List<FuncionarioDTO>> listarPorCargo(String cargo) {
+		List<Funcionario> funcionarios = funcionarioRepository.findByCargoDescricao(cargo);
+		return ResponseEntity.ok(FuncionarioDTO.converter(funcionarios));
+	}
 
 	@GetMapping("data-contratacao-a-partir-de")
 	public ResponseEntity<List<FuncionarioDTO>> listarPorDataContratacao(String data) {
